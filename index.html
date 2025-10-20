@@ -281,7 +281,6 @@
                     const card = document.createElement('div');
                     card.className = 'glass-container !bg-white/10 p-6 text-white text-center rounded-2xl cursor-pointer hover:!bg-white/20 transition transform hover:-translate-y-1 card-enter';
                     card.style.animationDelay = `${index * 100}ms`;
-                    card.dataset.id = referral.id;
                     
                     card.addEventListener('click', () => displayReferralDetails(referral.id));
                     card.innerHTML = `
@@ -313,7 +312,7 @@
                                 <p class="text-sm opacity-70">DOB</p><p class="font-bold text-lg">${referral.dob.split('(')[0].trim()}</p>
                             </div>
                             <div class="card-enter glass-container !bg-white/10 p-4 rounded-2xl" style="animation-delay: 50ms;">
-                                 <p class="text-sm opacity-70">Age</p><p class="font-bold text-lg">${referral.dob.match(/\\(Age (.*?)\\)/)[1]}</p>
+                                 <p class="text-sm opacity-70">Age</p><p class="font-bold text-lg">${referral.dob.match(/\(Age (.*?)\)/)[1]}</p>
                             </div>
                             <div class="card-enter glass-container !bg-white/10 p-4 rounded-2xl" style="animation-delay: 100ms;">
                                 <p class="text-sm opacity-70">Referral Type</p><p class="font-bold text-lg">${referral.referralType}</p>
