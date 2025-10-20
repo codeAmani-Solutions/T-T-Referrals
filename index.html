@@ -15,15 +15,15 @@
             font-family: 'Inter', sans-serif;
         }
         .glass-container {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 1.5rem; /* 24px */
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
         }
         .main-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4854a8 0%, #583e85 100%);
         }
         .input-field:focus {
             box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
@@ -39,13 +39,13 @@
             75% { transform: translateX(-5px); }
         }
         .card-enter {
-            animation: card-enter 0.5s ease-out forwards;
+            animation: card-enter 0.6s ease-out forwards;
             opacity: 0;
         }
         @keyframes card-enter {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(25px);
             }
             to {
                 opacity: 1;
@@ -74,6 +74,41 @@
         #email-draft-text {
             resize: none;
         }
+
+        .hero-name {
+            color: #f0f0f0;
+            text-shadow: 0 0 15px rgba(230, 230, 255, 0.7), 0 0 5px rgba(230, 230, 255, 0.7);
+        }
+
+        .heading-color {
+            color: #C2B2FF; /* Electric Lavender */
+        }
+        .label-color {
+            color: #d1c4e9; /* Soft Lavender */
+        }
+        .body-text-color {
+            color: #E8E2F9; /* Off-white */
+        }
+
+        .alert-heading-color {
+            color: #FFC0CB; /* Lighter red for heading */
+            text-shadow: 0 0 8px rgba(255, 100, 100, 0.6);
+        }
+        .alert-label-color {
+             color: #F5B9BD;
+        }
+        
+        .card-hover-effect {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .card-hover-effect:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px 0 rgba(20, 24, 80, 0.4);
+            background: rgba(255, 255, 255, 0.20);
+        }
+
+
     </style>
 </head>
 <body class="main-bg min-h-screen flex items-center justify-center p-4">
@@ -117,14 +152,13 @@
     </div>
 
     <!-- Referral Detail Section -->
-    <div id="referral-detail-section" class="hidden w-full max-w-6xl">
+    <div id="referral-detail-section" class="hidden w-full max-w-7xl">
         <div class="glass-container p-6 md:p-8 max-h-[90vh] overflow-y-auto custom-scrollbar">
             <header class="flex flex-col md:flex-row justify-between items-center mb-6 border-b border-white/30 pb-4">
                 <div class="flex items-center space-x-4 mb-4 md:mb-0">
                     <button id="back-to-list-button" class="bg-white/20 text-white font-semibold py-2 px-5 rounded-lg hover:bg-white/40 transition duration-300">
                         &larr; Back
                     </button>
-                     <h1 id="detail-header-title" class="text-2xl md:text-3xl font-bold text-white"></h1>
                 </div>
                 <button id="logout-button-detail" class="bg-red-500/50 text-white font-semibold py-2 px-5 rounded-lg hover:bg-red-500/80 transition duration-300">
                     Log Out
@@ -237,7 +271,6 @@
             const errorMessage = document.getElementById('error-message');
             const referralsContainer = document.getElementById('referrals-container');
             const detailContent = document.getElementById('detail-content');
-            const detailHeaderTitle = document.getElementById('detail-header-title');
             const backToListButton = document.getElementById('back-to-list-button');
             const logoutButtons = [document.getElementById('logout-button-list'), document.getElementById('logout-button-detail')];
             let qsiChart = null;
@@ -279,7 +312,7 @@
                 referralsContainer.innerHTML = '';
                 referralsData.forEach((referral, index) => {
                     const card = document.createElement('div');
-                    card.className = 'glass-container !bg-white/10 p-6 text-white text-center rounded-2xl cursor-pointer hover:!bg-white/20 transition transform hover:-translate-y-1 card-enter';
+                    card.className = 'glass-container card-hover-effect !bg-white/10 p-6 text-white text-center rounded-2xl cursor-pointer transition transform card-enter';
                     card.style.animationDelay = `${index * 100}ms`;
                     
                     card.addEventListener('click', () => displayReferralDetails(referral.id));
@@ -292,146 +325,125 @@
                 showScreen(referralListSection);
             }
 
-            function createIcon(path) {
-                return `<svg class="w-6 h-6 mr-3 inline-block shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">${path}</svg>`;
+            function createIcon(path, classes = "w-6 h-6 mr-3 inline-block shrink-0") {
+                return `<svg class="${classes}" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">${path}</svg>`;
             }
 
             function displayReferralDetails(id) {
                 const referral = referralsData.find(r => r.id === id);
                 if (!referral) return;
 
-                detailHeaderTitle.innerHTML = `Overview for ${referral.name}`;
-
                 const emailBody = `Good afternoon ${referral.referralContactName},\n\nThank you for reaching out. T&T Serenity Care is interested in learning more about the referral for ${referral.fullName} (ID: ${referral.id}).\n\nWe have reviewed the initial documentation and believe we may be a good fit. Please let us know the next steps for a potential placement.\n\nBest regards,\n\nT&T Serenity Care`;
 
                 detailContent.innerHTML = `
-                    <div class="space-y-6">
-                         <!-- Key Info Grid -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
-                            <div class="card-enter glass-container !bg-white/10 p-4 rounded-2xl">
-                                <p class="text-sm opacity-70">DOB</p><p class="font-bold text-lg">${referral.dob.split('(')[0].trim()}</p>
-                            </div>
-                            <div class="card-enter glass-container !bg-white/10 p-4 rounded-2xl" style="animation-delay: 50ms;">
-                                 <p class="text-sm opacity-70">Age</p><p class="font-bold text-lg">${referral.dob.match(/\(Age (.*?)\)/)[1]}</p>
-                            </div>
-                            <div class="card-enter glass-container !bg-white/10 p-4 rounded-2xl" style="animation-delay: 100ms;">
-                                <p class="text-sm opacity-70">Referral Type</p><p class="font-bold text-lg">${referral.referralType}</p>
-                            </div>
-                            <div class="card-enter glass-container !bg-white/10 p-4 rounded-2xl" style="animation-delay: 150ms;">
-                                <p class="text-sm opacity-70">Dates</p><p class="font-bold text-lg">${referral.dates}</p>
+                    <div class="space-y-8">
+                         <!-- Hero Section -->
+                        <div class="text-center p-4 rounded-2xl relative card-enter">
+                            <div class="absolute inset-0 bg-black/20 rounded-2xl -z-10"></div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-24 h-24 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-4xl font-bold text-white mb-4 shadow-lg">
+                                    ${referral.fullName.charAt(0)}
+                                </div>
+                                <h1 class="text-4xl font-bold hero-name tracking-tight">${referral.fullName}</h1>
+                                <p class="text-indigo-200">ID: ${referral.id}</p>
                             </div>
                         </div>
 
-                        <!-- Alerts -->
-                         <div class="card-enter glass-container !bg-red-500/30 border border-red-400/50 p-5 rounded-2xl" style="animation-delay: 200ms;">
-                             <h3 class="font-bold text-xl mb-3 flex items-center">${createIcon('<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>')} Key Alerts</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-sm">
-                                <p class="flex items-start"><strong>Allergies:</strong><span class="ml-2">${referral.allergies}</span></p>
-                                <p class="flex items-start"><strong>Evacuation Risk:</strong><span class="ml-2">${referral.evacuationRisk}</span></p>
-                            </div>
-                        </div>
-
-                        <!-- Main Grid -->
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Main Grid Layout -->
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
                             <!-- Left Column -->
-                            <div class="lg:col-span-2 space-y-6">
-                                <!-- Medical -->
-                                <div class="card-enter glass-container !bg-white/10 p-5 rounded-2xl" style="animation-delay: 300ms;">
-                                    <h3 class="font-bold text-xl mb-3 flex items-center">${createIcon('<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line>')} Medical & Health</h3>
-                                    <div class="space-y-2 text-sm">
-                                        <p><strong>Primary Diagnosis:</strong> ${referral.primaryDiagnosis}</p>
-                                        <p><strong>Other Diagnoses:</strong> ${referral.otherDiagnoses}</p>
-                                        <p><strong>Accommodations:</strong> ${referral.accommodations}</p>
-                                        <p><strong>Medications:</strong> ${referral.medications}</p>
+                            <div class="lg:col-span-2 space-y-8">
+                                <!-- Alerts -->
+                                <div class="card-enter card-hover-effect glass-container !bg-red-900/30 border border-red-400/50 p-6 rounded-2xl" style="animation-delay: 100ms;">
+                                     <h3 class="font-bold text-xl mb-3 flex items-center alert-heading-color">${createIcon('<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>')} Key Alerts</h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-sm body-text-color">
+                                        <p class="flex items-start"><strong class="alert-label-color mr-2">Allergies:</strong><span>${referral.allergies}</span></p>
+                                        <p class="flex items-start"><strong class="alert-label-color mr-2">Evacuation Risk:</strong><span>${referral.evacuationRisk}</span></p>
                                     </div>
                                 </div>
-                                <!-- Functional -->
-                                 <div class="card-enter glass-container !bg-white/10 p-5 rounded-2xl" style="animation-delay: 400ms;">
-                                    <h3 class="font-bold text-xl mb-3 flex items-center">${createIcon('<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M15 21v-1a6 6 0 00-5.197-5.975M15 10a4 4 0 11-8 0 4 4 0 018 0z"></path>')} Functional Abilities</h3>
-                                     <div class="space-y-2 text-sm">
-                                        <p><strong>General:</strong> ${referral.functionalGeneral}</p>
-                                        <p><strong>Vision:</strong> ${referral.functionalVision}</p>
-                                        <p><strong>Hygiene:</strong> ${referral.functionalHygiene}</p>
-                                        <p><strong>Communication:</strong> ${referral.functionalCommunication}</p>
+                                <!-- Medical -->
+                                <div class="card-enter card-hover-effect glass-container p-6 rounded-2xl" style="animation-delay: 200ms;">
+                                    <h3 class="font-bold text-xl mb-4 flex items-center heading-color">${createIcon('<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line>')} Medical & Health</h3>
+                                    <div class="space-y-3 text-sm body-text-color">
+                                        <p><strong class="label-color">Primary Diagnosis:</strong> ${referral.primaryDiagnosis}</p>
+                                        <p><strong class="label-color">Other Diagnoses:</strong> ${referral.otherDiagnoses}</p>
+                                        <p><strong class="label-color">Accommodations:</strong> ${referral.accommodations}</p>
+                                        <p><strong class="label-color">Medications:</strong> ${referral.medications}</p>
+                                    </div>
+                                </div>
+                                <!-- Behavioral -->
+                                <div class="card-enter card-hover-effect glass-container p-6 rounded-2xl" style="animation-delay: 300ms;">
+                                    <h3 class="font-bold text-xl mb-4 flex items-center heading-color">${createIcon('<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>')} Behavioral Profile</h3>
+                                    <div class="space-y-3 text-sm body-text-color">
+                                        <p><strong class="label-color">Key Issues:</strong> ${referral.behavioralIssues}</p>
+                                        <p><strong class="label-color">Social Context:</strong> ${referral.behavioralSocial}</p>
+                                        <div class="!mt-4 p-4 rounded-lg bg-black/20 border border-purple-400/30">
+                                            <p><strong class="label-color">History Note:</strong> ${referral.behavioralHistory}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- Right Column -->
-                            <div class="space-y-6">
-                                <!-- QSI Chart -->
-                                <div class="card-enter glass-container !bg-white/10 p-5 rounded-2xl" style="animation-delay: 350ms;">
-                                    <h3 class="font-bold text-xl mb-3 flex items-center">${createIcon('<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>')} QSI At-a-Glance</h3>
+                            <div class="space-y-8">
+                                 <!-- QSI Chart -->
+                                <div class="card-enter card-hover-effect glass-container p-6 rounded-2xl" style="animation-delay: 150ms;">
+                                    <h3 class="font-bold text-xl mb-3 flex items-center heading-color">${createIcon('<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>')} QSI At-a-Glance</h3>
                                     <canvas id="qsiChart"></canvas>
                                 </div>
+                                <!-- Key Info -->
+                                <div class="card-enter card-hover-effect glass-container p-6 rounded-2xl" style="animation-delay: 250ms;">
+                                    <h3 class="font-bold text-xl mb-4 flex items-center heading-color">${createIcon('<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>')} Key Information</h3>
+                                    <div class="space-y-3 text-sm body-text-color">
+                                        <p><strong class="label-color">DOB:</strong> ${referral.dob}</p>
+                                        <p><strong class="label-color">Referral:</strong> ${referral.referralType} (${referral.dates})</p>
+                                    </div>
+                                </div>
                                 <!-- Contacts -->
-                                <div class="card-enter glass-container !bg-white/10 p-5 rounded-2xl" style="animation-delay: 450ms;">
-                                    <h3 class="font-bold text-xl mb-3 flex items-center">${createIcon('<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>')} Key Contacts</h3>
-                                    <div class="space-y-3 text-sm">
+                                <div class="card-enter card-hover-effect glass-container p-6 rounded-2xl" style="animation-delay: 350ms;">
+                                    <h3 class="font-bold text-xl mb-4 flex items-center heading-color">${createIcon('<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>')} Key Contacts</h3>
+                                    <div class="space-y-3 text-sm body-text-color">
                                         <div>
-                                            <p class="font-bold">Legal Representative:</p>
-                                            <p>${referral.legalRep} | <a href="tel:${referral.legalRepPhone}" class="underline">${referral.legalRepPhone}</a> | <a href="mailto:${referral.legalRepEmail}" class="underline">${referral.legalRepEmail}</a></p>
+                                            <p class="font-bold label-color">Legal Representative:</p>
+                                            <p>${referral.legalRep} | <a href="tel:${referral.legalRepPhone}" class="underline hover:text-white">${referral.legalRepPhone}</a></p>
+                                            <p><a href="mailto:${referral.legalRepEmail}" class="underline hover:text-white">${referral.legalRepEmail}</a></p>
                                         </div>
                                         <div>
-                                            <p class="font-bold">Support Coordinator:</p>
-                                            <p>${referral.wscName} | <a href="tel:${referral.wscPhone}" class="underline">${referral.wscPhone}</a> | <a href="mailto:${referral.wscEmail}" class="underline">${referral.wscEmail}</a></p>
+                                            <p class="font-bold label-color">Support Coordinator:</p>
+                                            <p>${referral.wscName} | <a href="tel:${referral.wscPhone}" class="underline hover:text-white">${referral.wscPhone}</a></p>
+                                            <p><a href="mailto:${referral.wscEmail}" class="underline hover:text-white">${referral.wscEmail}</a></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- Behavioral and Social Grid -->
-                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                              <!-- Behavioral -->
-                            <div class="card-enter glass-container !bg-white/10 p-5 rounded-2xl" style="animation-delay: 500ms;">
-                                <h3 class="font-bold text-xl mb-3 flex items-center">${createIcon('<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>')} Behavioral Profile</h3>
-                                 <div class="space-y-2 text-sm">
-                                    <p><strong>Key Issues:</strong> ${referral.behavioralIssues}</p>
-                                    <p><strong>Social:</strong> ${referral.behavioralSocial}</p>
-                                    <div class="!mt-3 p-3 rounded-lg bg-purple-500/20 border border-purple-400/50">
-                                        <p><strong>History:</strong> ${referral.behavioralHistory}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Social -->
-                            <div class="card-enter glass-container !bg-white/10 p-5 rounded-2xl" style="animation-delay: 550ms;">
-                                <h3 class="font-bold text-xl mb-3 flex items-center">${createIcon('<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>')} Social & Context</h3>
-                                <div class="space-y-2 text-sm">
-                                    <p><strong>Background:</strong> ${referral.socialBackground}</p>
-                                    <p><strong>Daily Life:</strong> ${referral.socialDailyLife}</p>
-                                    <p><strong>Goals:</strong> ${referral.socialGoals}</p>
-                                </div>
+                         <!-- Documents -->
+                        <div class="card-enter glass-container p-6 rounded-2xl mt-8" style="animation-delay: 400ms;">
+                             <h3 class="font-bold text-xl mb-4 flex items-center heading-color">${createIcon('<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>')} Attached Documents</h3>
+                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+                                <a href="${referral.assets.email}" target="_blank" rel="noopener noreferrer" class="block bg-black/20 hover:bg-black/30 p-4 rounded-lg transition duration-300 card-hover-effect">
+                                    <p class="font-semibold text-lg">📧</p><p class="font-semibold text-sm">Referral Email</p>
+                                </a>
+                                <a href="${referral.assets.form}" target="_blank" rel="noopener noreferrer" class="block bg-black/20 hover:bg-black/30 p-4 rounded-lg transition duration-300 card-hover-effect">
+                                     <p class="font-semibold text-lg">📋</p><p class="font-semibold text-sm">Referral Form</p>
+                                </a>
+                                <a href="${referral.assets.pcsp}" target="_blank" rel="noopener noreferrer" class="block bg-black/20 hover:bg-black/30 p-4 rounded-lg transition duration-300 card-hover-effect">
+                                     <p class="font-semibold text-lg">🤝</p><p class="font-semibold text-sm">Support Plan</p>
+                                </a>
+                                <a href="${referral.assets.qsi}" target="_blank" rel="noopener noreferrer" class="block bg-black/20 hover:bg-black/30 p-4 rounded-lg transition duration-300 card-hover-effect">
+                                     <p class="font-semibold text-lg">📊</p><p class="font-semibold text-sm">QSI Report</p>
+                                </a>
                             </div>
                         </div>
 
                         <!-- Email Draft -->
-                        <div class="card-enter glass-container !bg-white/10 p-5 mt-6 rounded-2xl" style="animation-delay: 600ms;">
-                             <h3 class="font-bold text-xl mb-4 flex items-center">${createIcon('<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>')} Express Interest</h3>
+                        <div class="card-enter glass-container p-6 mt-8 rounded-2xl" style="animation-delay: 500ms;">
+                             <h3 class="font-bold text-xl mb-4 flex items-center heading-color">${createIcon('<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>')} Express Interest</h3>
                              <p class="text-sm opacity-80 mb-2">To: ${referral.referralContactEmail}</p>
                              <div class="relative">
-                                <textarea id="email-draft-text" rows="6" class="w-full bg-white/10 p-3 rounded-lg text-white text-sm border border-white/20 custom-scrollbar" readonly>${emailBody}</textarea>
+                                <textarea id="email-draft-text" rows="6" class="w-full bg-black/20 p-3 rounded-lg body-text-color text-sm border border-white/20 custom-scrollbar" readonly>${emailBody}</textarea>
                                 <button id="copy-email-button" class="absolute top-2 right-2 bg-white/30 hover:bg-white/50 text-white font-bold py-1 px-3 text-xs rounded-md transition duration-300">Copy</button>
                              </div>
-                        </div>
-
-
-                        <!-- Documents -->
-                        <div class="card-enter glass-container !bg-white/10 p-5 mt-6 rounded-2xl" style="animation-delay: 700ms;">
-                             <h3 class="font-bold text-xl mb-4 flex items-center">${createIcon('<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>')} Attached Documents</h3>
-                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
-                                <a href="${referral.assets.email}" target="_blank" rel="noopener noreferrer" class="block bg-white/20 hover:bg-white/30 p-4 rounded-lg transition duration-300 transform hover:scale-105">
-                                    <p class="font-semibold">📧 Referral Email</p><p class="text-xs opacity-70">(.png)</p>
-                                </a>
-                                <a href="${referral.assets.form}" target="_blank" rel="noopener noreferrer" class="block bg-white/20 hover:bg-white/30 p-4 rounded-lg transition duration-300 transform hover:scale-105">
-                                    <p class="font-semibold">📋 Referral Form</p><p class="text-xs opacity-70">(.pdf)</p>
-                                </a>
-                                <a href="${referral.assets.pcsp}" target="_blank" rel="noopener noreferrer" class="block bg-white/20 hover:bg-white/30 p-4 rounded-lg transition duration-300 transform hover:scale-105">
-                                    <p class="font-semibold">🤝 Support Plan</p><p class="text-xs opacity-70">(.pdf)</p>
-                                </a>
-                                <a href="${referral.assets.qsi}" target="_blank" rel="noopener noreferrer" class="block bg-white/20 hover:bg-white/30 p-4 rounded-lg transition duration-300 transform hover:scale-105">
-                                    <p class="font-semibold">📊 QSI Report</p><p class="text-xs opacity-70">(.pdf)</p>
-                                </a>
-                            </div>
                         </div>
                     </div>
                 `;
@@ -448,12 +460,12 @@
                         datasets: [{
                             label: 'QSI Scores',
                             data: [referral.qsiPhysical, referral.qsiFunctional, referral.qsiBehavioral],
-                            backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                            borderColor: 'rgba(255, 255, 255, 0.8)',
+                            backgroundColor: 'rgba(194, 178, 255, 0.3)',
+                            borderColor: 'rgba(194, 178, 255, 0.9)',
                             pointBackgroundColor: 'rgba(255, 255, 255, 1)',
                             pointBorderColor: '#fff',
                             pointHoverBackgroundColor: '#fff',
-                            pointHoverBorderColor: 'rgba(255, 99, 132, 1)'
+                            pointHoverBorderColor: 'rgba(194, 178, 255, 1)'
                         }]
                     },
                     options: {
@@ -465,7 +477,7 @@
                                 grid: { color: 'rgba(255, 255, 255, 0.3)' },
                                 pointLabels: { color: 'white', font: { size: 14 } },
                                 ticks: {
-                                    color: 'white',
+                                    color: 'rgba(255, 255, 255, 0.7)',
                                     backdropColor: 'transparent',
                                     stepSize: 1
                                 },
