@@ -178,15 +178,16 @@
                 {
                     id: 66281,
                     name: "Phoenix W****",
-                    fullName: "Phoenix Williams",
+                    fullName: "Phoenix W****",
+                    emailFullName: "Phoenix Williams",
                     dob: "July 19, 2007 (Age 18)",
                     legalRep: "Katrina W**** (Adoptive Mother)",
                     legalRepPhone: "(407) 791-5230",
                     legalRepEmail: "kwilliams33012@cfl.rr.com",
-                    wscName: "Karen Massay-Brank",
+                    wscName: "Karen M****",
                     wscPhone: "(407) 908-9018",
                     wscEmail: "kmassayb1@outlook.com",
-                    referralContactName: "Lisa Thompson",
+                    referralContactName: "Lisa T****",
                     referralContactEmail: "lisa.thompson@apdcares.org",
                     residence: "Family Home, Ocoee, FL",
                     referralType: "Respite Placement",
@@ -212,23 +213,24 @@
                     socialGoals: "Aspires to live independently, learn financial skills, and become more disciplined.",
                     assets: {
                         email: "assets/66281_Referral_Email.png",
-                        form: "assets/Residential Referral Form - 66281.pdf",
-                        pcsp: "assets/WILLIAMS_PHOENIX PCSP 08-2025.pdf",
-                        qsi: "assets/WILLIAMS_PHOENIX QSI Complete 06-03-2025.pdf"
+                        form: "assets/66281_Residential%20Referral%20Form.pdf",
+                        pcsp: "assets/66281_WILLIAMS_PHOENIX%20PCSP%2008_2025.pdf",
+                        qsi: "assets/66281_WILLIAMS_PHOENIX%20QSI%20Complete%2006_03_2025.pdf"
                     }
                 },
                 {
                     id: 76234,
                     name: "Hunter W****",
-                    fullName: "Hunter Williams",
+                    fullName: "Hunter W****",
+                    emailFullName: "Hunter Williams",
                     dob: "March 29, 2005 (Age 20)",
                     legalRep: "Katrina W**** (Adoptive Mother)",
                     legalRepPhone: "(407) 791-5230",
                     legalRepEmail: "kwilliams33012@cfl.rr.com",
-                    wscName: "Karen Massay-Brank",
+                    wscName: "Karen M****",
                     wscPhone: "(407) 908-9018",
                     wscEmail: "kmassayb1@outlook.com",
-                    referralContactName: "Lisa Thompson",
+                    referralContactName: "Lisa T****",
                     referralContactEmail: "lisa.thompson@apdcares.org",
                     residence: "Family Home, Ocoee, FL",
                     referralType: "Respite Placement",
@@ -253,10 +255,10 @@
                     socialDailyLife: "Attends college classes with support and uses Access Lynx for transport. Has had multiple on-the-job training placements.",
                     socialGoals: "Wants to live in a group home, eventually an apartment, and complete a college certification.",
                      assets: {
-                        email: "assets/76234_Referral Email.png",
-                        form: "assets/76234_Residential Referral Form.pdf",
-                        pcsp: "assets/76234_WILLIAMS_HUNTER PCSP 09_2025.pdf",
-                        qsi: "assets/76234_WILLIAMS_HUNTER QSI Complete 06_03_2025.pdf"
+                        email: "assets/76234_Referral%20Email.png",
+                        form: "assets/76234_Residential%20Referral%20Form.pdf",
+                        pcsp: "assets/76234_WILLIAMS_HUNTER%20PCSP%2009_2025.pdf",
+                        qsi: "assets/76234_WILLIAMS_HUNTER%20QSI%20Complete%2006_03_2025.pdf"
                     }
                 }
             ];
@@ -333,7 +335,7 @@
                 const referral = referralsData.find(r => r.id === id);
                 if (!referral) return;
 
-                const emailBody = `Good afternoon ${referral.referralContactName},\n\nThank you for reaching out. T&T Serenity Care is interested in learning more about the referral for ${referral.fullName} (ID: ${referral.id}).\n\nWe have reviewed the initial documentation and believe we may be a good fit. Please let us know the next steps for a potential placement.\n\nBest regards,\n\nT&T Serenity Care`;
+                const emailBody = `Good afternoon ${referral.referralContactName},\n\nThank you for reaching out. T&T Serenity Care is interested in learning more about the referral for ${referral.emailFullName} (ID: ${referral.id}).\n\nWe have reviewed the initial documentation and believe we may be a good fit. Please let us know the next steps for a potential placement.\n\nBest regards,\n\nT&T Serenity Care`;
 
                 detailContent.innerHTML = `
                     <div class="space-y-8">
