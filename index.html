@@ -36,14 +36,29 @@
             50% { transform: translateX(5px); }
             75% { transform: translateX(-5px); }
         }
+        /* Custom scrollbar for better aesthetics */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
     </style>
 </head>
-<body class="main-bg min-h-screen flex items-center justify-center p-4 overflow-hidden">
+<body class="main-bg min-h-screen flex items-center justify-center p-4">
+
     <!-- Login Section -->
     <div id="login-section" class="w-full max-w-md">
         <div class="glass-container p-8 text-white text-center">
             <img src="https://placehold.co/100x100/FFFFFF/764ba2?text=T%26T" alt="T&T Serenity Care Logo" class="mx-auto mb-6 rounded-full border-2 border-white/50">
-            <!-- Comment: Replace the placeholder above with your logo path, e.g., './assets/logo.png' -->
             <h1 class="text-3xl font-bold mb-2">T&T Serenity Care</h1>
             <p class="text-lg opacity-80 mb-8">Secure Referral Portal</p>
             <div class="space-y-4">
@@ -57,171 +72,265 @@
         </div>
     </div>
 
-    <!-- Main Content Section -->
-    <div id="main-content" class="hidden w-full max-w-6xl mx-auto">
+    <!-- Referral List Section -->
+    <div id="referral-list-section" class="hidden w-full max-w-4xl">
         <div class="glass-container p-6 md:p-10">
+            <header class="flex justify-between items-center mb-8 border-b border-white/30 pb-4">
+                <h1 class="text-2xl md:text-3xl font-bold text-white">Active Referrals</h1>
+                <button id="logout-button-list" class="bg-red-500/50 text-white font-semibold py-2 px-5 rounded-lg hover:bg-red-500/80 transition duration-300">
+                    Log Out
+                </button>
+            </header>
+            <div id="referrals-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Referral cards will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Referral Detail Section -->
+    <div id="referral-detail-section" class="hidden w-full max-w-6xl">
+        <div class="glass-container p-6 md:p-10 max-h-[90vh] overflow-y-auto custom-scrollbar">
             <header class="flex flex-col md:flex-row justify-between items-center mb-8 border-b border-white/30 pb-4">
                 <div class="flex items-center space-x-4 mb-4 md:mb-0">
-                    <img src="https://placehold.co/60x60/FFFFFF/764ba2?text=T%26T" alt="T&T Serenity Care Logo" class="rounded-full border-2 border-white/50">
-                    <!-- Comment: Replace the placeholder above with your logo path, e.g., './assets/logo.png' -->
+                    <button id="back-to-list-button" class="bg-white/20 text-white font-semibold py-2 px-5 rounded-lg hover:bg-white/40 transition duration-300">
+                        &larr; Back
+                    </button>
                     <div>
-                        <h1 class="text-2xl md:text-3xl font-bold text-white">T&T Serenity Care</h1>
-                        <p class="text-white/80">APD Referral Overview</p>
+                        <h1 class="text-2xl md:text-3xl font-bold text-white">Referral Overview</h1>
                     </div>
                 </div>
-                <button id="logout-button" class="bg-red-500/50 text-white font-semibold py-2 px-5 rounded-lg hover:bg-red-500/80 transition duration-300">
+                <button id="logout-button-detail" class="bg-red-500/50 text-white font-semibold py-2 px-5 rounded-lg hover:bg-red-500/80 transition duration-300">
                     Log Out
                 </button>
             </header>
 
-            <main class="text-white">
-                <h2 class="text-2xl font-semibold mb-6 text-center">Referral Analysis: Phoenix Williams <span class="text-base font-normal opacity-70">(ID: 66281)</span></h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                    <!-- Personal & Legal Card -->
-                    <div class="glass-container !bg-white/10 p-6 space-y-3 col-span-1 md:col-span-2 lg:col-span-1">
-                        <h3 class="font-bold text-xl border-b border-white/20 pb-2 mb-3">Personal & Legal</h3>
-                        <p><strong>DOB:</strong> July 19, 2007 (Age 18)</p>
-                        <p><strong>Legal Rep:</strong> Katrina Williams (Adoptive Mother)</p>
-                        <p><strong>Residence:</strong> Family Home, Ocoee, FL</p>
-                        <p><strong>Referral:</strong> Respite Placement</p>
-                        <p><strong>Dates:</strong> Nov 6, 2025 - Nov 9, 2025</p>
-                    </div>
-
-                    <!-- Medical & Health Card -->
-                    <div class="glass-container !bg-white/10 p-6 space-y-3 col-span-1 md:col-span-2">
-                        <h3 class="font-bold text-xl border-b border-white/20 pb-2 mb-3">Medical & Health (QSI Physical Score: 6)</h3>
-                        <p><strong>Primary Diagnosis:</strong> Spina Bifida</p>
-                        <p><strong>Other Diagnoses:</strong> Autism, ADHD, Fetal Alcohol Syndrome, Anxiety, PTSD, Asthma, Glaucoma.</p>
-                         <p><strong>Accommodations:</strong> Manages neurogenic bowel via ACE procedure and uses a catheter (total assistance needed).</p>
-                        <p><strong>Medications:</strong> Requires full management. Takes Seroquel, Concerta, Ritalin, Omeprazole under a medication trial.</p>
-                        <p><strong>Allergies:</strong> Severe allergy to tree nuts, peanuts, and seafood.</p>
-                    </div>
-                    
-                    <!-- Functional Abilities Card -->
-                    <div class="glass-container !bg-white/10 p-6 space-y-3 col-span-1 md:col-span-2">
-                        <h3 class="font-bold text-xl border-b border-white/20 pb-2 mb-3">Functional Abilities (QSI Score: 4)</h3>
-                        <p><strong>General:</strong> Requires assistance in all major adaptive skills.</p>
-                        <p><strong>Vision:</strong> Impaired (glaucoma, color blindness). Needs help matching clothes.</p>
-                        <p><strong>Hygiene:</strong> Requires step-by-step verbal prompts and supervision. History of pretending to shower.</p>
-                        <p><strong>Communication:</strong> Difficulty with verbal expression; does not initiate with strangers.</p>
-                        <p class="bg-yellow-500/20 p-3 rounded-lg border border-yellow-400/50"><strong>Evacuation Risk:</strong> HIGH. Will not wake to alarms due to medication. Requires direct physical assistance to evacuate.</p>
-                    </div>
-
-                    <!-- Behavioral Profile Card -->
-                    <div class="glass-container !bg-white/10 p-6 space-y-3 col-span-1">
-                        <h3 class="font-bold text-xl border-b border-white/20 pb-2 mb-3">Behavioral Profile (QSI Score: 3)</h3>
-                        <p><strong>Key Issues:</strong> Elopement history, non-compliance, telling lies (especially about care), and poor impulse control.</p>
-                        <p><strong>Social:</strong> Vulnerable with strangers despite being friendly.</p>
-                        <p><strong>History:</strong> Notes of Self-Injurious Behavior (SIB) and disruptive behaviors.</p>
-                    </div>
-
-                    <!-- Social & History Card -->
-                    <div class="glass-container !bg-white/10 p-6 space-y-3 col-span-1 md:col-span-2 lg:col-span-3">
-                        <h3 class="font-bold text-xl border-b border-white/20 pb-2 mb-3">Social & Historical Context</h3>
-                        <p><strong>Background:</strong> Adopted. History of significant trauma (sexual abuse) prior to entering foster care.</p>
-                        <p><strong>Daily Life:</strong> Attends High School (12th grade) and works part-time via a VR program. Thrives on routine.</p>
-                        <p><strong>Goals:</strong> Aspires to live independently, learn financial skills, and become more disciplined.</p>
-                    </div>
-
-                    <!-- Attached Documents Card -->
-                    <div class="glass-container !bg-white/10 p-6 space-y-4 col-span-1 md:col-span-2 lg:col-span-3">
-                        <h3 class="font-bold text-xl border-b border-white/20 pb-2 mb-3">Attached Referral Documents</h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
-                            <a href="assets/66281_Referral_Email.png" target="_blank" rel="noopener noreferrer" class="block bg-white/20 hover:bg-white/30 p-4 rounded-lg transition duration-300 transform hover:scale-105">
-                                <p class="font-semibold">Referral Email</p>
-                                <p class="text-xs opacity-70">(.png)</p>
-                            </a>
-                            <a href="assets/Residential Referral Form - 66281.pdf" target="_blank" rel="noopener noreferrer" class="block bg-white/20 hover:bg-white/30 p-4 rounded-lg transition duration-300 transform hover:scale-105">
-                                 <p class="font-semibold">Referral Form</p>
-                                 <p class="text-xs opacity-70">(.pdf)</p>
-                            </a>
-                            <a href="assets/WILLIAMS_PHOENIX PCSP 08-2025.pdf" target="_blank" rel="noopener noreferrer" class="block bg-white/20 hover:bg-white/30 p-4 rounded-lg transition duration-300 transform hover:scale-105">
-                                 <p class="font-semibold">Support Plan (PCSP)</p>
-                                 <p class="text-xs opacity-70">(.pdf)</p>
-                            </a>
-                            <a href="assets/WILLIAMS_PHOENIX QSI Complete 06-03-2025.pdf" target="_blank" rel="noopener noreferrer" class="block bg-white/20 hover:bg-white/30 p-4 rounded-lg transition duration-300 transform hover:scale-105">
-                                 <p class="font-semibold">QSI Report</p>
-                                 <p class="text-xs opacity-70">(.pdf)</p>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
+            <main id="detail-content" class="text-white">
+                <!-- Detailed referral info will be dynamically inserted here -->
             </main>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- DATA STORE ---
+            const referralsData = [
+                {
+                    id: 66281,
+                    name: "Phoenix W****",
+                    dob: "July 19, 2007 (Age 18)",
+                    legalRep: "Katrina W**** (Adoptive Mother)",
+                    residence: "Family Home, Ocoee, FL",
+                    referralType: "Respite Placement",
+                    dates: "Nov 6, 2025 - Nov 9, 2025",
+                    primaryDiagnosis: "Spina Bifida",
+                    otherDiagnoses: "Autism, ADHD, Fetal Alcohol Syndrome, Anxiety, PTSD, Asthma, Glaucoma.",
+                    accommodations: "Manages neurogenic bowel via ACE procedure and uses a catheter (total assistance needed).",
+                    medications: "Requires full management. Takes Seroquel, Concerta, Ritalin, Omeprazole under a medication trial.",
+                    allergies: "Severe allergy to tree nuts, peanuts, and seafood.",
+                    qsiPhysical: 6,
+                    qsiFunctional: 4,
+                    qsiBehavioral: 3,
+                    functionalGeneral: "Requires assistance in all major adaptive skills.",
+                    functionalVision: "Impaired (glaucoma, color blindness). Needs help matching clothes.",
+                    functionalHygiene: "Requires step-by-step verbal prompts and supervision. History of pretending to shower.",
+                    functionalCommunication: "Difficulty with verbal expression; does not initiate with strangers.",
+                    evacuationRisk: "HIGH. Will not wake to alarms due to medication. Requires direct physical assistance to evacuate.",
+                    behavioralIssues: "Elopement history, non-compliance, telling lies (especially about care), and poor impulse control.",
+                    behavioralSocial: "Vulnerable with strangers despite being friendly.",
+                    behavioralHistory: "Notes of Self-Injurious Behavior (SIB) and disruptive behaviors.",
+                    socialBackground: "Adopted. History of significant trauma (sexual abuse) prior to entering foster care.",
+                    socialDailyLife: "Attends High School (12th grade) and works part-time via a VR program. Thrives on routine.",
+                    socialGoals: "Aspires to live independently, learn financial skills, and become more disciplined.",
+                    assets: {
+                        email: "assets/66281_Referral_Email.png",
+                        form: "assets/Residential Referral Form - 66281.pdf",
+                        pcsp: "assets/WILLIAMS_PHOENIX PCSP 08-2025.pdf",
+                        qsi: "assets/WILLIAMS_PHOENIX QSI Complete 06-03-2025.pdf"
+                    }
+                },
+                {
+                    id: 76234,
+                    name: "Hunter W****",
+                    dob: "March 29, 2005 (Age 20)",
+                    legalRep: "Katrina W**** (Adoptive Mother)",
+                    residence: "Family Home, Ocoee, FL",
+                    referralType: "Respite Placement",
+                    dates: "Nov 6, 2025 - Nov 9, 2025",
+                    primaryDiagnosis: "Intellectual Disability",
+                    otherDiagnoses: "Autism, Depression, ADHD.",
+                    accommodations: "No major physical accommodations noted, but requires assistance with most ADLs.",
+                    medications: "Requires full management. Takes Focalin, Remeron, Lexapro, Intuniv, Symbicort, Vyvanse.",
+                    allergies: "Environmental allergies. No known food allergies.",
+                    qsiPhysical: 2,
+                    qsiFunctional: 3,
+                    qsiBehavioral: 2,
+                    functionalGeneral: "Requires assistance in most adaptive skills, independent in toileting.",
+                    functionalVision: "Color blind, requires assistance matching clothes.",
+                    functionalHygiene: "Requires verbal prompts and supervision, similar history of pretending to shower.",
+                    functionalCommunication: "Does not initiate communication and will not self-report illness or injury. This has led to a past hospitalization.",
+                    evacuationRisk: "MODERATE. Will wake to alarms but would wait for direction rather than evacuating independently.",
+                    behavioralIssues: "History of elopement, non-compliance, telling lies, and poor socialization skills. History of unauthorized breaks at work placements.",
+                    behavioralSocial: "Can be defiant and has anger issues. Easily influenced by others.",
+                    behavioralHistory: "History of inappropriate sexual behavior with sibling at a young age. Requires monitoring.",
+                    socialBackground: "Adopted. Former foster child.",
+                    socialDailyLife: "Attends college classes with support and uses Access Lynx for transport. Has had multiple on-the-job training placements.",
+                    socialGoals: "Wants to live in a group home, eventually an apartment, and complete a college certification.",
+                     assets: {
+                        email: "assets/76234_Referral Email.png",
+                        form: "assets/76234_Residential Referral Form.pdf",
+                        pcsp: "assets/76234_WILLIAMS_HUNTER PCSP 09_2025.pdf",
+                        qsi: "assets/76234_WILLIAMS_HUNTER QSI Complete 06_03_2025.pdf"
+                    }
+                }
+            ];
+
+            // --- DOM ELEMENTS ---
             const loginSection = document.getElementById('login-section');
-            const mainContent = document.getElementById('main-content');
+            const referralListSection = document.getElementById('referral-list-section');
+            const referralDetailSection = document.getElementById('referral-detail-section');
+            
             const usernameInput = document.getElementById('username');
             const accessCodeInput = document.getElementById('access-code');
             const submitButton = document.getElementById('submit-button');
-            const logoutButton = document.getElementById('logout-button');
             const errorMessage = document.getElementById('error-message');
             
-            // This is the access code and username.
+            const referralsContainer = document.getElementById('referrals-container');
+            const detailContent = document.getElementById('detail-content');
+            
+            const backToListButton = document.getElementById('back-to-list-button');
+            const logoutButtons = [document.getElementById('logout-button-list'), document.getElementById('logout-button-detail')];
+
+            // --- AUTH & ROUTING ---
             const CORRECT_USERNAME = 'tandt';
             const CORRECT_ACCESS_CODE = 'APD2025';
 
-            function showContent() {
+            function showScreen(screen) {
                 loginSection.classList.add('hidden');
-                mainContent.classList.remove('hidden');
-                sessionStorage.setItem('isAuthenticated', 'true');
+                referralListSection.classList.add('hidden');
+                referralDetailSection.classList.add('hidden');
+                screen.classList.remove('hidden');
             }
-
-            function showLogin() {
-                mainContent.classList.add('hidden');
-                loginSection.classList.remove('hidden');
+            
+            function logout() {
                 sessionStorage.removeItem('isAuthenticated');
                 usernameInput.value = '';
                 accessCodeInput.value = '';
-            }
-
-            // Check session storage on page load
-            if (sessionStorage.getItem('isAuthenticated') === 'true') {
-                showContent();
+                showScreen(loginSection);
             }
             
             function handleLogin() {
                 const enteredUsername = usernameInput.value.trim().toLowerCase();
                 const enteredAccessCode = accessCodeInput.value;
-
                 if (enteredUsername === CORRECT_USERNAME && enteredAccessCode === CORRECT_ACCESS_CODE) {
-                    showContent();
+                    sessionStorage.setItem('isAuthenticated', 'true');
+                    displayReferralList();
                     errorMessage.textContent = '';
                 } else {
                     errorMessage.textContent = 'Incorrect username or access code.';
                     loginSection.classList.add('error-shake');
-                    setTimeout(() => {
-                        loginSection.classList.remove('error-shake');
-                    }, 500);
+                    setTimeout(() => loginSection.classList.remove('error-shake'), 500);
                 }
             }
 
-            submitButton.addEventListener('click', handleLogin);
-            
-            usernameInput.addEventListener('keypress', (event) => {
-                if (event.key === 'Enter') {
-                    handleLogin();
-                }
-            });
+            // --- DYNAMIC CONTENT RENDERING ---
+            function displayReferralList() {
+                referralsContainer.innerHTML = ''; // Clear existing list
+                referralsData.forEach(referral => {
+                    const card = document.createElement('div');
+                    card.className = 'glass-container !bg-white/10 p-6 text-white text-center rounded-2xl cursor-pointer hover:!bg-white/20 transition transform hover:-translate-y-1';
+                    card.dataset.id = referral.id;
+                    card.innerHTML = `
+                        <h3 class="text-2xl font-bold">${referral.name}</h3>
+                        <p class="opacity-70">ID: ${referral.id}</p>
+                    `;
+                    card.addEventListener('click', () => displayReferralDetails(referral.id));
+                    referralsContainer.appendChild(card);
+                });
+                showScreen(referralListSection);
+            }
 
-            accessCodeInput.addEventListener('keypress', (event) => {
-                if (event.key === 'Enter') {
-                    handleLogin();
-                }
-            });
+            function displayReferralDetails(id) {
+                const referral = referralsData.find(r => r.id === id);
+                if (!referral) return;
+
+                detailContent.innerHTML = `
+                    <h2 class="text-2xl font-semibold mb-6 text-center">Referral Analysis: ${referral.name} <span class="text-base font-normal opacity-70">(ID: ${referral.id})</span></h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Cards go here -->
+                        <div class="glass-container !bg-white/10 p-6 space-y-3 col-span-1 md:col-span-2 lg:col-span-1">
+                            <h3 class="font-bold text-xl border-b border-white/20 pb-2 mb-3">Personal & Legal</h3>
+                            <p><strong>DOB:</strong> ${referral.dob}</p>
+                            <p><strong>Legal Rep:</strong> ${referral.legalRep}</p>
+                            <p><strong>Residence:</strong> ${referral.residence}</p>
+                            <p><strong>Referral:</strong> ${referral.referralType}</p>
+                            <p><strong>Dates:</strong> ${referral.dates}</p>
+                        </div>
+                        <div class="glass-container !bg-white/10 p-6 space-y-3 col-span-1 md:col-span-2">
+                            <h3 class="font-bold text-xl border-b border-white/20 pb-2 mb-3">Medical & Health (QSI Physical Score: ${referral.qsiPhysical})</h3>
+                            <p><strong>Primary Diagnosis:</strong> ${referral.primaryDiagnosis}</p>
+                            <p><strong>Other Diagnoses:</strong> ${referral.otherDiagnoses}</p>
+                            <p><strong>Accommodations:</strong> ${referral.accommodations}</p>
+                            <p><strong>Medications:</strong> ${referral.medications}</p>
+                            <p><strong>Allergies:</strong> ${referral.allergies}</p>
+                        </div>
+                        <div class="glass-container !bg-white/10 p-6 space-y-3 col-span-1 md:col-span-2">
+                            <h3 class="font-bold text-xl border-b border-white/20 pb-2 mb-3">Functional Abilities (QSI Score: ${referral.qsiFunctional})</h3>
+                            <p><strong>General:</strong> ${referral.functionalGeneral}</p>
+                            <p><strong>Vision:</strong> ${referral.functionalVision}</p>
+                            <p><strong>Hygiene:</strong> ${referral.functionalHygiene}</p>
+                            <p><strong>Communication:</strong> ${referral.functionalCommunication}</p>
+                            <p class="bg-yellow-500/20 p-3 rounded-lg border border-yellow-400/50"><strong>Evacuation Risk:</strong> ${referral.evacuationRisk}</p>
+                        </div>
+                        <div class="glass-container !bg-white/10 p-6 space-y-3 col-span-1">
+                            <h3 class="font-bold text-xl border-b border-white/20 pb-2 mb-3">Behavioral Profile (QSI Score: ${referral.qsiBehavioral})</h3>
+                            <p><strong>Key Issues:</strong> ${referral.behavioralIssues}</p>
+                            <p><strong>Social:</strong> ${referral.behavioralSocial}</p>
+                            <p><strong>History:</strong> ${referral.behavioralHistory}</p>
+                        </div>
+                        <div class="glass-container !bg-white/10 p-6 space-y-3 col-span-1 md:col-span-3">
+                            <h3 class="font-bold text-xl border-b border-white/20 pb-2 mb-3">Social & Historical Context</h3>
+                            <p><strong>Background:</strong> ${referral.socialBackground}</p>
+                            <p><strong>Daily Life:</strong> ${referral.socialDailyLife}</p>
+                            <p><strong>Goals:</strong> ${referral.socialGoals}</p>
+                        </div>
+                        <div class="glass-container !bg-white/10 p-6 space-y-4 col-span-1 md:col-span-3">
+                            <h3 class="font-bold text-xl border-b border-white/20 pb-2 mb-3">Attached Referral Documents</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+                                <a href="${referral.assets.email}" target="_blank" rel="noopener noreferrer" class="block bg-white/20 hover:bg-white/30 p-4 rounded-lg transition duration-300 transform hover:scale-105">
+                                    <p class="font-semibold">Referral Email</p><p class="text-xs opacity-70">(.png)</p>
+                                </a>
+                                <a href="${referral.assets.form}" target="_blank" rel="noopener noreferrer" class="block bg-white/20 hover:bg-white/30 p-4 rounded-lg transition duration-300 transform hover:scale-105">
+                                    <p class="font-semibold">Referral Form</p><p class="text-xs opacity-70">(.pdf)</p>
+                                </a>
+                                <a href="${referral.assets.pcsp}" target="_blank" rel="noopener noreferrer" class="block bg-white/20 hover:bg-white/30 p-4 rounded-lg transition duration-300 transform hover:scale-105">
+                                    <p class="font-semibold">Support Plan (PCSP)</p><p class="text-xs opacity-70">(.pdf)</p>
+                                </a>
+                                <a href="${referral.assets.qsi}" target="_blank" rel="noopener noreferrer" class="block bg-white/20 hover:bg-white/30 p-4 rounded-lg transition duration-300 transform hover:scale-105">
+                                    <p class="font-semibold">QSI Report</p><p class="text-xs opacity-70">(.pdf)</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                showScreen(referralDetailSection);
+            }
+
+            // --- EVENT LISTENERS ---
+            submitButton.addEventListener('click', handleLogin);
+            usernameInput.addEventListener('keypress', e => e.key === 'Enter' && handleLogin());
+            accessCodeInput.addEventListener('keypress', e => e.key === 'Enter' && handleLogin());
             
-            logoutButton.addEventListener('click', () => {
-                showLogin();
-            });
+            logoutButtons.forEach(btn => btn.addEventListener('click', logout));
+            backToListButton.addEventListener('click', displayReferralList);
+
+            // --- INITIALIZATION ---
+            if (sessionStorage.getItem('isAuthenticated') === 'true') {
+                displayReferralList();
+            } else {
+                showScreen(loginSection);
+            }
         });
     </script>
 </body>
 </html>
-
 
