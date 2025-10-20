@@ -1,1 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T&T Serenity Care | Secure Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-container {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 1.5rem; /* 24px */
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .main-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .input-field:focus {
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+            outline: none;
+        }
+        .error-shake {
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+    </style>
+</head>
+<body class="main-bg min-h-screen flex items-center justify-center p-4 overflow-hidden">
+    <!-- Login Section -->
+    <div id="login-section" class="w-full max-w-md">
+        <div class="glass-container p-8 text-white text-center">
+            <img src="https://placehold.co/100x100/FFFFFF/764ba2?text=T%26T" alt="T&T Serenity Care Logo" class="mx-auto mb-6 rounded-full border-2 border-white/50">
+            <!-- Comment: Replace the placeholder above with your logo path, e.g., './assets/logo.png' -->
+            <h1 class="text-3xl font-bold mb-2">T&T Serenity Care</h1>
+            <p class="text-lg opacity-80 mb-8">Secure Referral Portal</p>
+            <div class="space-y-4">
+                <input type="text" id="username" placeholder="Enter Username" class="input-field w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/70 focus:ring-2 focus:ring-white/50 transition duration-300">
+                <input type="password" id="access-code" placeholder="Enter Access Code" class="input-field w-full px-4 py-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-white/70 focus:ring-2 focus:ring-white/50 transition duration-300">
+                <button id="submit-button" class="w-full bg-white text-[#764ba2] font-bold py-3 px-4 rounded-lg hover:bg-opacity-90 transition duration-300 transform hover:scale-105">
+                    Access Information
+                </button>
+            </div>
+            <p id="error-message" class="text-red-300 mt-4 h-4"></p>
+        </div>
+    </div>
+
+    <!-- Main Content Section -->
+    <div id="main-content" class="hidden w-full max-w-6xl mx-auto">
+        <div class="glass-container p-6 md:p-10">
+            <header class="flex flex-col md:flex-row justify-between items-center mb-8 border-b border-white/30 pb-4">
+                <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                    <img src="https://placehold.co/60x60/FFFFFF/764ba2?text=T%26T" alt="T&T Serenity Care Logo" class="rounded-full border-2 border-white/50">
+                    <!-- Comment: Replace the placeholder above with your logo path, e.g., './assets/logo.png' -->
+                    <div>
+                        <h1 class="text-2xl md:text-3xl font-bold text-white">T&T Serenity Care</h1>
+                        <p class="text-white/80">APD Referral Overview</p>
+                    </div>
+                </div>
+                <button id="logout-button" class="bg-red-500/50 text-white font-semibold py-2 px-5 rounded-lg hover:bg-red-500/80 transition duration-300">
+                    Log Out
+                </button>
+            </header>
+
+            <main class="text-white">
+                <h2 class="text-2xl font-semibold mb-6 text-center">Referral Analysis: Phoenix Williams <span class="text-base font-normal opacity-70">(ID: 66281)</span></h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Personal & Legal Card -->
+                    <div class="glass-container !bg-white/10 p-6 space-y-3 col-span-1 md:col-span-2 lg:col-span-1">
+                        <h3 class="font-bold text-xl border-b border-white/20 pb-2 mb-3">Personal & Legal</h3>
+                        <p><strong>DOB:</strong> July 19, 2007 (Age 18)</p>
+                        <p><strong>Legal Rep:</strong> Katrina Williams (Adoptive Mother)</p>
+                        <p><strong>Residence:</strong> Family Home, Ocoee, FL</p>
+                        <p><strong>Referral:</strong> Respite Placement</p>
+                        <p><strong>Dates:</strong> Nov 6, 2025 - Nov 9, 2025</p>
+                    </div>
+
+                    <!-- Medical & Health Card -->
+                    <div class="glass-container !bg-white/10 p-6 space-y-3 col-span-1 md:col-span-2">
+                        <h3 class="font-bold text-xl border-b border-white/20 pb-2 mb-3">Medical & Health (QSI Physical Score: 6)</h3>
+                        <p><strong>Primary Diagnosis:</strong> Spina Bifida</p>
+                        <p><strong>Other Diagnoses:</strong> Autism, ADHD, Fetal Alcohol Syndrome, Anxiety, PTSD, Asthma, Glaucoma.</p>
+                         <p><strong>Accommodations:</strong> Manages neurogenic bowel via ACE procedure and uses a catheter (total assistance needed).</p>
+                        <p><strong>Medications:</strong> Requires full management. Takes Seroquel, Concerta, Ritalin, Omeprazole under a medication trial.</p>
+                        <p><strong>Allergies:</strong> Severe allergy to tree nuts, peanuts, and seafood.</p>
+                    </div>
+                    
+                    <!-- Functional Abilities Card -->
+                    <div class="glass-container !bg-white/10 p-6 space-y-3 col-span-1 md:col-span-2">
+                        <h3 class="font-bold text-xl border-b border-white/20 pb-2 mb-3">Functional Abilities (QSI Score: 4)</h3>
+                        <p><strong>General:</strong> Requires assistance in all major adaptive skills.</p>
+                        <p><strong>Vision:</strong> Impaired (glaucoma, color blindness). Needs help matching clothes.</p>
+                        <p><strong>Hygiene:</strong> Requires step-by-step verbal prompts and supervision. History of pretending to shower.</p>
+                        <p><strong>Communication:</strong> Difficulty with verbal expression; does not initiate with strangers.</p>
+                        <p class="bg-yellow-500/20 p-3 rounded-lg border border-yellow-400/50"><strong>Evacuation Risk:</strong> HIGH. Will not wake to alarms due to medication. Requires direct physical assistance to evacuate.</p>
+                    </div>
+
+                    <!-- Behavioral Profile Card -->
+                    <div class="glass-container !bg-white/10 p-6 space-y-3 col-span-1">
+                        <h3 class="font-bold text-xl border-b border-white/20 pb-2 mb-3">Behavioral Profile (QSI Score: 3)</h3>
+                        <p><strong>Key Issues:</strong> Elopement history, non-compliance, telling lies (especially about care), and poor impulse control.</p>
+                        <p><strong>Social:</strong> Vulnerable with strangers despite being friendly.</p>
+                        <p><strong>History:</strong> Notes of Self-Injurious Behavior (SIB) and disruptive behaviors.</p>
+                    </div>
+
+                    <!-- Social & History Card -->
+                    <div class="glass-container !bg-white/10 p-6 space-y-3 col-span-1 md:col-span-2 lg:col-span-3">
+                        <h3 class="font-bold text-xl border-b border-white/20 pb-2 mb-3">Social & Historical Context</h3>
+                        <p><strong>Background:</strong> Adopted. History of significant trauma (sexual abuse) prior to entering foster care.</p>
+                        <p><strong>Daily Life:</strong> Attends High School (12th grade) and works part-time via a VR program. Thrives on routine.</p>
+                        <p><strong>Goals:</strong> Aspires to live independently, learn financial skills, and become more disciplined.</p>
+                    </div>
+
+                    <!-- Attached Documents Card -->
+                    <div class="glass-container !bg-white/10 p-6 space-y-4 col-span-1 md:col-span-2 lg:col-span-3">
+                        <h3 class="font-bold text-xl border-b border-white/20 pb-2 mb-3">Attached Referral Documents</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+                            <a href="assets/66281_Referral_Email.png" target="_blank" rel="noopener noreferrer" class="block bg-white/20 hover:bg-white/30 p-4 rounded-lg transition duration-300 transform hover:scale-105">
+                                <p class="font-semibold">Referral Email</p>
+                                <p class="text-xs opacity-70">(.png)</p>
+                            </a>
+                            <a href="assets/Residential Referral Form - 66281.pdf" target="_blank" rel="noopener noreferrer" class="block bg-white/20 hover:bg-white/30 p-4 rounded-lg transition duration-300 transform hover:scale-105">
+                                 <p class="font-semibold">Referral Form</p>
+                                 <p class="text-xs opacity-70">(.pdf)</p>
+                            </a>
+                            <a href="assets/WILLIAMS_PHOENIX PCSP 08-2025.pdf" target="_blank" rel="noopener noreferrer" class="block bg-white/20 hover:bg-white/30 p-4 rounded-lg transition duration-300 transform hover:scale-105">
+                                 <p class="font-semibold">Support Plan (PCSP)</p>
+                                 <p class="text-xs opacity-70">(.pdf)</p>
+                            </a>
+                            <a href="assets/WILLIAMS_PHOENIX QSI Complete 06-03-2025.pdf" target="_blank" rel="noopener noreferrer" class="block bg-white/20 hover:bg-white/30 p-4 rounded-lg transition duration-300 transform hover:scale-105">
+                                 <p class="font-semibold">QSI Report</p>
+                                 <p class="text-xs opacity-70">(.pdf)</p>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginSection = document.getElementById('login-section');
+            const mainContent = document.getElementById('main-content');
+            const usernameInput = document.getElementById('username');
+            const accessCodeInput = document.getElementById('access-code');
+            const submitButton = document.getElementById('submit-button');
+            const logoutButton = document.getElementById('logout-button');
+            const errorMessage = document.getElementById('error-message');
+            
+            // This is the access code and username.
+            const CORRECT_USERNAME = 'tandt';
+            const CORRECT_ACCESS_CODE = 'APD2025';
+
+            function showContent() {
+                loginSection.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+                sessionStorage.setItem('isAuthenticated', 'true');
+            }
+
+            function showLogin() {
+                mainContent.classList.add('hidden');
+                loginSection.classList.remove('hidden');
+                sessionStorage.removeItem('isAuthenticated');
+                usernameInput.value = '';
+                accessCodeInput.value = '';
+            }
+
+            // Check session storage on page load
+            if (sessionStorage.getItem('isAuthenticated') === 'true') {
+                showContent();
+            }
+            
+            function handleLogin() {
+                const enteredUsername = usernameInput.value.trim().toLowerCase();
+                const enteredAccessCode = accessCodeInput.value;
+
+                if (enteredUsername === CORRECT_USERNAME && enteredAccessCode === CORRECT_ACCESS_CODE) {
+                    showContent();
+                    errorMessage.textContent = '';
+                } else {
+                    errorMessage.textContent = 'Incorrect username or access code.';
+                    loginSection.classList.add('error-shake');
+                    setTimeout(() => {
+                        loginSection.classList.remove('error-shake');
+                    }, 500);
+                }
+            }
+
+            submitButton.addEventListener('click', handleLogin);
+            
+            usernameInput.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') {
+                    handleLogin();
+                }
+            });
+
+            accessCodeInput.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') {
+                    handleLogin();
+                }
+            });
+            
+            logoutButton.addEventListener('click', () => {
+                showLogin();
+            });
+        });
+    </script>
+</body>
+</html>
+
 
