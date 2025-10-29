@@ -133,7 +133,7 @@
     </div>
 
     <!-- Referral List Section -->
-    <div id="referral-list-section" class="hidden w-full max-w-4xl">
+    <div id="referral-list-section" class="hidden w-full max-w-5xl"> 
         <div class="glass-container p-6 md:p-10">
             <header class="flex justify-between items-center mb-8 border-b border-white/30 pb-4">
                  <div class="text-white">
@@ -145,7 +145,7 @@
                 </button>
             </header>
              <h1 class="text-2xl md:text-3xl font-bold text-white mb-6 text-center">Active Referrals</h1>
-            <div id="referrals-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div id="referrals-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"> 
                 <!-- Referral cards will be dynamically inserted here -->
             </div>
         </div>
@@ -174,12 +174,14 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- DATA STORE ---
+            // Added referralSentDate (YYYY-MM-DD format for easy sorting)
             const referralsData = [
                 {
                     id: 66281,
                     name: "Phoenix W****",
                     fullName: "Phoenix W****",
                     emailFullName: "Phoenix Williams",
+                    referralSentDate: "2025-10-20", // Extracted from Referral Email.png timestamp
                     dob: "July 19, 2007 (Age 18)",
                     legalRep: "Katrina W**** (Adoptive Mother)",
                     legalRepPhone: "(407) 791-5230",
@@ -223,6 +225,7 @@
                     name: "Hunter W****",
                     fullName: "Hunter W****",
                     emailFullName: "Hunter Williams",
+                    referralSentDate: "2025-10-20", // Extracted from 76234_Referral Email.png timestamp
                     dob: "March 29, 2005 (Age 20)",
                     legalRep: "Katrina W**** (Adoptive Mother)",
                     legalRepPhone: "(407) 791-5230",
@@ -261,20 +264,21 @@
                         qsi: "assets/76234_WILLIAMS_HUNTER%20QSI%20Complete%2006_03_2025.pdf"
                     }
                 },
-                { // NEW REFERRAL: April Ratner
+                { 
                     id: 12527,
                     name: "April R****",
                     fullName: "April R****",
                     emailFullName: "April Ratner",
+                    referralSentDate: "2025-10-23", // Extracted from 12527 - Residential Referral Email.png timestamp
                     dob: "August 3, 1967 (Age 58)",
                     legalRep: "Sonia H**** (Mother)",
                     legalRepPhone: "(386) 453-1333",
-                    legalRepEmail: "N/A", // Email not provided in docs
+                    legalRepEmail: "N/A", 
                     wscName: "Rocio Rosario",
                     wscPhone: "(386) 473-5784",
                     wscEmail: "RRosario@ovginc.net",
-                    referralContactName: "Kerry C****", // Extracted from Referral Email PNG
-                    referralContactEmail: "Kerry.Clark@apdcares.org", // Extracted from Referral Email PNG
+                    referralContactName: "Kerry C****", 
+                    referralContactEmail: "Kerry.Clark@apdcares.org", 
                     residence: "Family Home, Ormond Beach, FL",
                     referralType: "Respite Placement",
                     dates: "Nov 14, 2025 - Nov 17, 2025",
@@ -285,7 +289,7 @@
                     allergies: "No Known Allergies (NKA).",
                     qsiPhysical: 3,
                     qsiFunctional: 5,
-                    qsiBehavioral: 5, // QSI doc not provided, PCSP notes SIB/skin picking
+                    qsiBehavioral: 5, 
                     functionalGeneral: "Dependent in all ADLs.",
                     functionalVision: "No Impairment noted.",
                     functionalHygiene: "Requires total physical assistance.",
@@ -302,6 +306,50 @@
                         form: "assets/12527_Referral.pdf",
                         pcsp: "assets/12527_April%20Ratner%20Personal%20Care%20Support.pdf",
                         qsi: "" // QSI document was not provided for this referral
+                    }
+                },
+                { 
+                    id: 82513,
+                    name: "J.D. W****",
+                    fullName: "J.D. W****",
+                    emailFullName: "J.D. Wheeler",
+                    referralSentDate: "2025-10-28", // Extracted from 82513 - Residential Referral Email.png timestamp
+                    dob: "July 18, 1983 (Age 42)",
+                    legalRep: "Su W**** (Parent)", 
+                    legalRepPhone: "(618) 401-1339", 
+                    legalRepEmail: "wheelersu@gmail.com", 
+                    wscName: "Kenneth Keaton", 
+                    wscPhone: "(321) 317-5498", 
+                    wscEmail: "brentkeaton@gmail.com", 
+                    referralContactName: "Lisa T****", 
+                    referralContactEmail: "lisa.thompson@apdcares.org", 
+                    residence: "Family Home, Titusville, FL",
+                    referralType: "Change of Placement (Standard GH)",
+                    dates: "N/A (Permanent)",
+                    primaryDiagnosis: "Cerebral Palsy",
+                    otherDiagnoses: "Gastroparesis, Constipation.",
+                    accommodations: "Dependent on wheelchair (manual requires propulsion, power chair needs setup). Fully dependent on transfers. Requires food cut, assistance scooping. Uses briefs but usually continent with prompting (rings bell).",
+                    medications: "Requires full management. Takes Linzess, Metoclopramide (prn), Tums, Dulcolax, Senna, Colace.",
+                    allergies: "No Known Allergies (NKA).",
+                    qsiPhysical: 3, 
+                    qsiFunctional: 5, 
+                    qsiBehavioral: 1, 
+                    functionalGeneral: "Dependent for hygiene, dressing, transfers, ambulation assist. Requires assistance eating, toileting.",
+                    functionalVision: "Impaired - Wears glasses.",
+                    functionalHygiene: "Total assistance required.",
+                    functionalCommunication: "Verbal, but speaks slowly. May need time or clarification questions. Can write.",
+                    evacuationRisk: "DEPENDENT. Requires full assistance.",
+                    behavioralIssues: "None noted in recent docs. QSI Behavioral score is 1.",
+                    behavioralSocial: "Enjoys social interaction. Looks to parents for advice.",
+                    behavioralHistory: "No significant history noted.",
+                    socialBackground: "Lived in group homes previously (IL 2014-2020, brief Orlando stay). Moved to FL in 2020. Attended college for 2 years.",
+                    socialDailyLife: "Temporarily living with aging parents (father has health issues limiting ability to assist). Enjoys iPad (weather, space launches), fishing, sports, Disney, going out daily.",
+                    socialGoals: "Move into a new group home, attend ADT, increase social circle.",
+                     assets: {
+                        email: "assets/82513%20-%20Residential%20Referral%20Email.png",
+                        form: "assets/82513_Residential%20Referral%20Form.pdf",
+                        pcsp: "assets/82513_PCSP%202025.pdf",
+                        qsi: "" // QSI Document not provided
                     }
                 }
             ];
@@ -352,22 +400,58 @@
                 }
             }
 
+            // --- UTILITY FUNCTIONS ---
+            function calculateDaysElapsed(dateString) {
+                const referralDate = new Date(dateString + 'T00:00:00'); // Ensure it's parsed as local time
+                const currentDate = new Date('2025-10-29T00:00:00'); // Fixed current date for consistency
+                const differenceInTime = currentDate.getTime() - referralDate.getTime();
+                const differenceInDays = Math.max(0, Math.floor(differenceInTime / (1000 * 3600 * 24))); // Ensure non-negative
+                return differenceInDays;
+            }
+
+            function formatDate(dateString) {
+                const date = new Date(dateString + 'T00:00:00');
+                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            }
+
+
             // --- DYNAMIC CONTENT RENDERING ---
             function displayReferralList() {
                 referralsContainer.innerHTML = '';
-                // Ensure layout adapts for 3 items
-                referralsContainer.classList.remove('md:grid-cols-2');
-                referralsContainer.classList.add(referralsData.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2');
 
-                referralsData.forEach((referral, index) => {
+                // Sort referrals by date, newest first
+                const sortedReferrals = [...referralsData].sort((a, b) => new Date(b.referralSentDate) - new Date(a.referralSentDate));
+
+                // Adjust grid columns based on number of referrals
+                referralsContainer.classList.remove('md:grid-cols-2', 'lg:grid-cols-3', 'lg:grid-cols-4'); 
+                if (sortedReferrals.length <= 2) {
+                    referralsContainer.classList.add('md:grid-cols-2');
+                } else if (sortedReferrals.length === 3) {
+                     referralsContainer.classList.add('lg:grid-cols-3');
+                } else { // 4 or more
+                     referralsContainer.classList.add('lg:grid-cols-4');
+                }
+
+                sortedReferrals.forEach((referral, index) => {
+                    const daysElapsed = calculateDaysElapsed(referral.referralSentDate);
+                    const formattedDate = formatDate(referral.referralSentDate);
                     const card = document.createElement('div');
-                    card.className = 'glass-container card-hover-effect !bg-white/10 p-6 text-white text-center rounded-2xl cursor-pointer transition transform card-enter';
+                    // Added flex-col and justify-between for better layout with new info
+                    card.className = 'glass-container card-hover-effect !bg-white/10 p-5 text-white text-center rounded-2xl cursor-pointer transition transform card-enter flex flex-col justify-between h-full'; 
                     card.style.animationDelay = `${index * 100}ms`;
                     
                     card.addEventListener('click', () => displayReferralDetails(referral.id));
                     card.innerHTML = `
-                        <h3 class="text-xl md:text-2xl font-bold">${referral.name}</h3>
-                        <p class="opacity-70 text-sm">ID: ${referral.id}</p>
+                        <div> {/* Container for top content */}
+                            <h3 class="text-lg md:text-xl font-bold mb-1">${referral.name}</h3> 
+                            <p class="opacity-70 text-xs md:text-sm mb-2">ID: ${referral.id}</p> 
+                        </div>
+                        <div class="mt-auto border-t border-white/20 pt-2"> {/* Container for bottom date info */}
+                             <p class="text-xs opacity-80">Sent: ${formattedDate}</p>
+                             <p class="text-xs font-semibold ${daysElapsed > 7 ? 'text-red-300' : 'text-green-300'}">
+                                ${daysElapsed} day${daysElapsed !== 1 ? 's' : ''} ago
+                             </p>
+                        </div>
                     `;
                     referralsContainer.appendChild(card);
                 });
@@ -541,7 +625,7 @@
                                         stepSize: 1
                                     },
                                 suggestedMin: 0,
-                                suggestedMax: 7 
+                                suggestedMax: 7 // Adjusted max based on QSI scores
                                 }
                             },
                             plugins: {
