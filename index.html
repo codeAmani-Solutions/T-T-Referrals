@@ -145,7 +145,7 @@
                 </button>
             </header>
              <h1 class="text-2xl md:text-3xl font-bold text-white mb-6 text-center">Active Referrals</h1>
-            <div id="referrals-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div id="referrals-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Referral cards will be dynamically inserted here -->
             </div>
         </div>
@@ -260,6 +260,49 @@
                         pcsp: "assets/76234_WILLIAMS_HUNTER%20PCSP%2009_2025.pdf",
                         qsi: "assets/76234_WILLIAMS_HUNTER%20QSI%20Complete%2006_03_2025.pdf"
                     }
+                },
+                { // NEW REFERRAL: April Ratner
+                    id: 12527,
+                    name: "April R****",
+                    fullName: "April R****",
+                    emailFullName: "April Ratner",
+                    dob: "August 3, 1967 (Age 58)",
+                    legalRep: "Sonia H**** (Mother)",
+                    legalRepPhone: "(386) 453-1333",
+                    legalRepEmail: "N/A", // Email not provided in docs
+                    wscName: "Rocio Rosario",
+                    wscPhone: "(386) 473-5784",
+                    wscEmail: "RRosario@ovginc.net",
+                    referralContactName: "Kerry C****", // Extracted from Referral Email PNG
+                    referralContactEmail: "Kerry.Clark@apdcares.org", // Extracted from Referral Email PNG
+                    residence: "Family Home, Ormond Beach, FL",
+                    referralType: "Respite Placement",
+                    dates: "Nov 14, 2025 - Nov 17, 2025",
+                    primaryDiagnosis: "Intellectual Disability",
+                    otherDiagnoses: "Breast Cancer (Stage 2, Metastatic), High Blood Pressure, High Cholesterol, Arthritis, OCD, Hydrocephalus history, Stroke history.",
+                    accommodations: "Uses wheelchair (requires assistance), requires total assistance for transfers, feeding (mostly), toileting (incontinent), hygiene, dressing.",
+                    medications: "Requires full management. Takes Pravastatin, Enalapril, Escitalopram, Diphenoxylate, Anastrozole (Chemo), Levetiracetam, Dexamethasone.",
+                    allergies: "No Known Allergies (NKA).",
+                    qsiPhysical: 3,
+                    qsiFunctional: 5,
+                    qsiBehavioral: 5, // QSI doc not provided, PCSP notes SIB/skin picking
+                    functionalGeneral: "Dependent in all ADLs.",
+                    functionalVision: "No Impairment noted.",
+                    functionalHygiene: "Requires total physical assistance.",
+                    functionalCommunication: "Non-verbal, communicates via gestures and facial expressions. Capacity decreased since stroke.",
+                    evacuationRisk: "DEPENDENT. Requires total physical assistance. Lives on 5th floor, needs plan for stair evacuation.",
+                    behavioralIssues: "OCD (skin picking/scratching). Requires constant supervision to prevent self-injury.",
+                    behavioralSocial: "Enjoys interaction but cannot protect self. Requires constant supervision.",
+                    behavioralHistory: "Self-injurious behavior (skin picking). Requires protective clothing (long sleeves).",
+                    socialBackground: "History of hydrocephalus, stroke during double mastectomy (2017/age 50). Ongoing battle with metastatic breast cancer, including recent brain surgery (Aug 2025).",
+                    socialDailyLife: "Lives with mother and sister (who is CDC+ provider). Routine varies due to medical appointments/chemotherapy. Enjoys music, car rides, shopping.",
+                    socialGoals: "Maintain health, remain safe, continue community outings.",
+                     assets: {
+                        email: "assets/12527%20-%20Residential%20Referral%20Email.png",
+                        form: "assets/12527_Referral.pdf",
+                        pcsp: "assets/12527_April%20Ratner%20Personal%20Care%20Support.pdf",
+                        qsi: "" // QSI document was not provided for this referral
+                    }
                 }
             ];
 
@@ -312,6 +355,10 @@
             // --- DYNAMIC CONTENT RENDERING ---
             function displayReferralList() {
                 referralsContainer.innerHTML = '';
+                // Ensure layout adapts for 3 items
+                referralsContainer.classList.remove('md:grid-cols-2');
+                referralsContainer.classList.add(referralsData.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2');
+
                 referralsData.forEach((referral, index) => {
                     const card = document.createElement('div');
                     card.className = 'glass-container card-hover-effect !bg-white/10 p-6 text-white text-center rounded-2xl cursor-pointer transition transform card-enter';
@@ -319,8 +366,8 @@
                     
                     card.addEventListener('click', () => displayReferralDetails(referral.id));
                     card.innerHTML = `
-                        <h3 class="text-2xl font-bold">${referral.name}</h3>
-                        <p class="opacity-70">ID: ${referral.id}</p>
+                        <h3 class="text-xl md:text-2xl font-bold">${referral.name}</h3>
+                        <p class="opacity-70 text-sm">ID: ${referral.id}</p>
                     `;
                     referralsContainer.appendChild(card);
                 });
@@ -335,7 +382,17 @@
                 const referral = referralsData.find(r => r.id === id);
                 if (!referral) return;
 
+                // Use the full name (emailFullName) only for the email draft
                 const emailBody = `Good afternoon ${referral.referralContactName},\n\nThank you for reaching out. T&T Serenity Care is interested in learning more about the referral for ${referral.emailFullName} (ID: ${referral.id}).\n\nWe have reviewed the initial documentation and believe we may be a good fit. Please let us know the next steps for a potential placement.\n\nBest regards,\n\nT&T Serenity Care`;
+
+                // Generate QSI Report link HTML, handling missing QSI doc
+                const qsiLinkHTML = referral.assets.qsi ? `
+                    <a href="${referral.assets.qsi}" target="_blank" rel="noopener noreferrer" class="block bg-black/20 hover:bg-black/30 p-4 rounded-lg transition duration-300 card-hover-effect">
+                         <p class="font-semibold text-lg">📊</p><p class="font-semibold text-sm">QSI Report</p>
+                    </a>` : `
+                    <div class="block bg-gray-700/30 p-4 rounded-lg cursor-not-allowed">
+                         <p class="font-semibold text-lg text-gray-500">📊</p><p class="font-semibold text-sm text-gray-500">QSI Report</p><p class="text-xs text-gray-400">(N/A)</p>
+                    </div>`;
 
                 detailContent.innerHTML = `
                     <div class="space-y-8">
@@ -407,7 +464,7 @@
                                         <div>
                                             <p class="font-bold label-color">Legal Representative:</p>
                                             <p>${referral.legalRep} | <a href="tel:${referral.legalRepPhone}" class="underline hover:text-white">${referral.legalRepPhone}</a></p>
-                                            <p><a href="mailto:${referral.legalRepEmail}" class="underline hover:text-white">${referral.legalRepEmail}</a></p>
+                                            <p>${referral.legalRepEmail !== 'N/A' ? `<a href="mailto:${referral.legalRepEmail}" class="underline hover:text-white">${referral.legalRepEmail}</a>` : 'Email N/A'}</p>
                                         </div>
                                         <div>
                                             <p class="font-bold label-color">Support Coordinator:</p>
@@ -432,9 +489,7 @@
                                 <a href="${referral.assets.pcsp}" target="_blank" rel="noopener noreferrer" class="block bg-black/20 hover:bg-black/30 p-4 rounded-lg transition duration-300 card-hover-effect">
                                      <p class="font-semibold text-lg">🤝</p><p class="font-semibold text-sm">Support Plan</p>
                                 </a>
-                                <a href="${referral.assets.qsi}" target="_blank" rel="noopener noreferrer" class="block bg-black/20 hover:bg-black/30 p-4 rounded-lg transition duration-300 card-hover-effect">
-                                     <p class="font-semibold text-lg">📊</p><p class="font-semibold text-sm">QSI Report</p>
-                                </a>
+                                ${qsiLinkHTML} 
                             </div>
                         </div>
 
@@ -455,45 +510,54 @@
                  if (qsiChart) {
                     qsiChart.destroy();
                 }
-                qsiChart = new Chart(ctx, {
-                    type: 'radar',
-                    data: {
-                        labels: ['Physical', 'Functional', 'Behavioral'],
-                        datasets: [{
-                            label: 'QSI Scores',
-                            data: [referral.qsiPhysical, referral.qsiFunctional, referral.qsiBehavioral],
-                            backgroundColor: 'rgba(194, 178, 255, 0.3)',
-                            borderColor: 'rgba(194, 178, 255, 0.9)',
-                            pointBackgroundColor: 'rgba(255, 255, 255, 1)',
-                            pointBorderColor: '#fff',
-                            pointHoverBackgroundColor: '#fff',
-                            pointHoverBorderColor: 'rgba(194, 178, 255, 1)'
-                        }]
-                    },
-                    options: {
-                         responsive: true,
-                        maintainAspectRatio: true,
-                        scales: {
-                            r: {
-                                angleLines: { color: 'rgba(255, 255, 255, 0.3)' },
-                                grid: { color: 'rgba(255, 255, 255, 0.3)' },
-                                pointLabels: { color: 'white', font: { size: 14 } },
-                                ticks: {
-                                    color: 'rgba(255, 255, 255, 0.7)',
-                                    backdropColor: 'transparent',
-                                    stepSize: 1
-                                },
-                               suggestedMin: 0,
-                               suggestedMax: 7 
-                            }
+                 // Check if QSI data exists before creating chart
+                 if (referral.qsiPhysical !== undefined && referral.qsiFunctional !== undefined && referral.qsiBehavioral !== undefined) {
+                    qsiChart = new Chart(ctx, {
+                        type: 'radar',
+                        data: {
+                            labels: ['Physical', 'Functional', 'Behavioral'],
+                            datasets: [{
+                                label: 'QSI Scores',
+                                data: [referral.qsiPhysical, referral.qsiFunctional, referral.qsiBehavioral],
+                                backgroundColor: 'rgba(194, 178, 255, 0.3)',
+                                borderColor: 'rgba(194, 178, 255, 0.9)',
+                                pointBackgroundColor: 'rgba(255, 255, 255, 1)',
+                                pointBorderColor: '#fff',
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: 'rgba(194, 178, 255, 1)'
+                            }]
                         },
-                        plugins: {
-                            legend: {
-                                display: false
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            scales: {
+                                r: {
+                                    angleLines: { color: 'rgba(255, 255, 255, 0.3)' },
+                                    grid: { color: 'rgba(255, 255, 255, 0.3)' },
+                                    pointLabels: { color: 'white', font: { size: 14 } },
+                                    ticks: {
+                                        color: 'rgba(255, 255, 255, 0.7)',
+                                        backdropColor: 'transparent',
+                                        stepSize: 1
+                                    },
+                                suggestedMin: 0,
+                                suggestedMax: 7 
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                 } else {
+                     // Optionally display a message if QSI data is missing
+                     ctx.font = "14px Inter";
+                     ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+                     ctx.textAlign = "center";
+                     ctx.fillText("QSI Data Not Available", ctx.canvas.width / 2, ctx.canvas.height / 2);
+                 }
 
 
                 // Add event listener for the new copy button
